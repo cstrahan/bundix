@@ -1,3 +1,0 @@
-#!/bin/sh
-
-NIX_PATH=nixpkgs=$HOME/src/nixpkgs:$NIX_PATH nix-shell --command zsh

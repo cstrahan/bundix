@@ -1,9 +1,15 @@
 with (import <nixpkgs> {});
-
-bundlerEnv {
+let
+  bundix = stdenv.mkDerivation {
+    name = "bundix";
+    src = ./.;
+    phases = "installPhase";
+    installPhase = ''
+      cp -r $src $out
+    '';
+    propagatedBuildInputs = [ruby];
+  };
+in stdenv.mkDerivation {
   name = "bundix";
-  ruby = ruby_2_1_3;
-  gemset = ./gemset.nix;
-  gemfile = ./Gemfile;
-  lockfile = ./Gemfile.lock;
+  buildInputs = [bundler bundix];
 }
